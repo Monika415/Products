@@ -1,0 +1,594 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7f6;
+    color: #222;
+}
+
+
+/* ================= NAVBAR ================= */
+
+header {
+    background: white;
+
+    padding: 18px 7%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+
+    box-shadow: 0 2px 10px #ddd;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #16834b;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+
+    margin-left: 22px;
+
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #16834b;
+}
+
+
+/* ================= HERO ================= */
+
+.hero {
+    min-height: 500px;
+
+    padding: 60px 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #e8f7ef;
+}
+
+.hero-content {
+    max-width: 550px;
+}
+
+.hero-content span {
+    color: #16834b;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-size: 50px;
+    margin: 15px 0;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.hero button {
+    margin-top: 25px;
+
+    padding: 13px 22px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #16834b;
+    color: white;
+
+    cursor: pointer;
+}
+
+.hero .sell-button {
+    background: #222;
+    margin-left: 10px;
+}
+
+.hero-image img {
+    width: 450px;
+    height: 320px;
+
+    object-fit: cover;
+
+    border-radius: 20px;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-area {
+    text-align: center;
+    padding: 30px;
+    background: white;
+}
+
+#searchBox {
+    width: 60%;
+
+    padding: 15px 20px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 30px;
+
+    font-size: 16px;
+}
+
+
+/* ================= CATEGORIES ================= */
+
+.categories {
+    text-align: center;
+    padding: 35px 7%;
+}
+
+.categories h2 {
+    margin-bottom: 20px;
+}
+
+.category-buttons button {
+    padding: 10px 18px;
+
+    margin: 5px;
+
+    border: 1px solid #16834b;
+
+    background: white;
+
+    color: #16834b;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
+.category-buttons button:hover {
+    background: #16834b;
+    color: white;
+}
+
+
+/* ================= PRODUCTS ================= */
+
+#products {
+    padding: 30px 7% 70px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.product-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 25px;
+}
+
+
+/* ================= PRODUCT CARD ================= */
+
+.product-card {
+    background: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px #ddd;
+
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.condition {
+    display: inline-block;
+
+    background: #e4f7eb;
+
+    color: #16834b;
+
+    padding: 5px 10px;
+
+    border-radius: 15px;
+
+    font-size: 12px;
+}
+
+.product-info h3 {
+    margin-top: 12px;
+}
+
+.product-info p {
+    color: #777;
+    margin-top: 8px;
+}
+
+.price {
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin: 15px 0;
+
+    color: #16834b;
+}
+
+.card-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.card-buttons button {
+    padding: 10px 15px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #16834b;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.card-buttons .heart {
+    background: #ffe9ed;
+    color: #e63950;
+}
+
+.contact-btn {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    border: 1px solid #16834b;
+
+    background: white;
+
+    color: #16834b;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+
+/* ================= SELL ================= */
+
+.sell-section {
+    background: #e8f7ef;
+
+    padding: 60px 20px;
+}
+
+.sell-box {
+    max-width: 600px;
+
+    margin: auto;
+
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 20px #ddd;
+}
+
+.sell-box h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.sell-box p {
+    text-align: center;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+#sellForm input,
+#sellForm select,
+#sellForm textarea {
+
+    width: 100%;
+
+    padding: 13px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+}
+
+#sellForm textarea {
+    height: 100px;
+}
+
+#sellForm button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #16834b;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+
+/* ================= LISTINGS ================= */
+
+.listings {
+    padding: 60px 7%;
+}
+
+#myListings {
+    max-width: 900px;
+    margin: auto;
+}
+
+.listing-card {
+    background: white;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    box-shadow: 0 3px 10px #ddd;
+}
+
+.listing-card img {
+    width: 100px;
+    height: 80px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+}
+
+.delete-btn {
+    background: #e63946;
+
+    color: white;
+
+    border: none;
+
+    padding: 8px 12px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+
+/* ================= WISHLIST ================= */
+
+.wishlist {
+    padding: 60px 7%;
+
+    background: white;
+}
+
+#wishlistItems {
+    text-align: center;
+}
+
+.wishlist-item {
+    background: #f5f5f5;
+
+    padding: 15px;
+
+    margin: 10px auto;
+
+    max-width: 500px;
+
+    border-radius: 8px;
+}
+
+
+/* ================= CART ================= */
+
+.cart-section {
+    padding: 60px 7%;
+}
+
+#cartItems {
+    max-width: 800px;
+    margin: auto;
+}
+
+.cart-item {
+    background: white;
+
+    padding: 18px;
+
+    margin-bottom: 12px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    box-shadow: 0 3px 10px #ddd;
+}
+
+.cart-controls button {
+    padding: 5px 10px;
+
+    margin: 0 5px;
+
+    border: none;
+
+    background: #16834b;
+
+    color: white;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.remove {
+    background: #e63946 !important;
+}
+
+.cart-total {
+    max-width: 800px;
+
+    margin: 25px auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.cart-total button {
+    padding: 13px 25px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #16834b;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #222;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 35px;
+}
+
+footer p {
+    margin-top: 10px;
+
+    color: #bbb;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        text-align: center;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 5px;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: 250px;
+    }
+
+    #searchBox {
+        width: 90%;
+    }
+
+    .cart-total {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .listing-card {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
