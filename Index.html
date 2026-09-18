@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ReUse Market</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <div class="logo">
+            ♻️ ReUse Market
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Buy</a>
+            <a href="#sell">Sell</a>
+            <a href="#wishlist">Wishlist ❤️</a>
+            <a href="#cart">Cart 🛒</a>
+        </nav>
+
+    </header>
+
+
+    <!-- ================= HOME ================= -->
+
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <span>BUY • SELL • REUSE</span>
+
+            <h1>
+                Give Products<br>
+                A Second Life ♻️
+            </h1>
+
+            <p>
+                Buy quality used products at affordable prices
+                or sell the products you no longer need.
+            </p>
+
+            <button onclick="goToProducts()">
+                Start Shopping
+            </button>
+
+            <button
+                class="sell-button"
+                onclick="goToSell()">
+                Sell Your Product
+            </button>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img
+                src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700"
+                alt="Used Products">
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <section class="search-area">
+
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="🔍 Search products..."
+            onkeyup="searchProducts()"
+        >
+
+    </section>
+
+
+    <!-- ================= CATEGORIES ================= -->
+
+    <section class="categories">
+
+        <h2>Browse Categories</h2>
+
+        <div class="category-buttons">
+
+            <button onclick="filterProducts('all')">
+                All
+            </button>
+
+            <button onclick="filterProducts('electronics')">
+                📱 Electronics
+            </button>
+
+            <button onclick="filterProducts('furniture')">
+                🪑 Furniture
+            </button>
+
+            <button onclick="filterProducts('books')">
+                📚 Books
+            </button>
+
+            <button onclick="filterProducts('fashion')">
+                👕 Fashion
+            </button>
+
+            <button onclick="filterProducts('vehicles')">
+                🚲 Vehicles
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PRODUCTS ================= -->
+
+    <section id="products">
+
+        <h2 class="section-title">
+            Featured Used Products
+        </h2>
+
+        <div
+            class="product-container"
+            id="productContainer">
+
+
+            <!-- PRODUCT 1 -->
+
+            <div
+                class="product-card"
+                data-category="electronics">
+
+                <img
+                    src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500"
+                    alt="Laptop">
+
+                <div class="product-info">
+
+                    <span class="condition">
+                        Good Condition
+                    </span>
+
+                    <h3>Used Laptop</h3>
+
+                    <p>
+                        💻 8GB RAM • 512GB SSD
+                    </p>
+
+                    <p>
+                        📍 Chennai
+                    </p>
+
+                    <div class="price">
+                        ₹25,000
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            onclick="addToCart('Used Laptop',25000)">
+                            🛒 Buy
+                        </button>
+
+                        <button
+                            class="heart"
+                            onclick="addWishlist('Used Laptop')">
+                            ❤️
+                        </button>
+
+                    </div>
+
+                    <button
+                        class="contact-btn"
+                        onclick="contactSeller('Used Laptop')">
+                        💬 Contact Seller
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 2 -->
+
+            <div
+                class="product-card"
+                data-category="electronics">
+
+                <img
+                    src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500"
+                    alt="Phone">
+
+                <div class="product-info">
+
+                    <span class="condition">
+                        Like New
+                    </span>
+
+                    <h3>Used Smartphone</h3>
+
+                    <p>
+                        📱 128GB Storage
+                    </p>
+
+                    <p>
+                        📍 Coimbatore
+                    </p>
+
+                    <div class="price">
+                        ₹12,500
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            onclick="addToCart('Used Smartphone',12500)">
+                            🛒 Buy
+                        </button>
+
+                        <button
+                            class="heart"
+                            onclick="addWishlist('Used Smartphone')">
+                            ❤️
+                        </button>
+
+                    </div>
+
+                    <button
+                        class="contact-btn"
+                        onclick="contactSeller('Used Smartphone')">
+                        💬 Contact Seller
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 3 -->
+
+            <div
+                class="product-card"
+                data-category="furniture">
+
+                <img
+                    src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500"
+                    alt="Sofa">
+
+                <div class="product-info">
+
+                    <span class="condition">
+                        Good Condition
+                    </span>
+
+                    <h3>Used Sofa</h3>
+
+                    <p>
+                        🛋️ 3 Seater Sofa
+                    </p>
+
+                    <p>
+                        📍 Madurai
+                    </p>
+
+                    <div class="price">
+                        ₹8,000
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            onclick="addToCart('Used Sofa',8000)">
+                            🛒 Buy
+                        </button>
+
+                        <button
+                            class="heart"
+                            onclick="addWishlist('Used Sofa')">
+                            ❤️
+                        </button>
+
+                    </div>
+
+                    <button
+                        class="contact-btn"
+                        onclick="contactSeller('Used Sofa')">
+                        💬 Contact Seller
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 4 -->
+
+            <div
+                class="product-card"
+                data-category="books">
+
+                <img
+                    src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500"
+                    alt="Books">
+
+                <div class="product-info">
+
+                    <span class="condition">
+                        Excellent
+                    </span>
+
+                    <h3>Engineering Books</h3>
+
+                    <p>
+                        📚 5 Books Set
+                    </p>
+
+                    <p>
+                        📍 Salem
+                    </p>
+
+                    <div class="price">
+                        ₹900
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            onclick="addToCart('Engineering Books',900)">
+                            🛒 Buy
+                        </button>
+
+                        <button
+                            class="heart"
+                            onclick="addWishlist('Engineering Books')">
+                            ❤️
+                        </button>
+
+                    </div>
+
+                    <button
+                        class="contact-btn"
+                        onclick="contactSeller('Engineering Books')">
+                        💬 Contact Seller
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 5 -->
+
+            <div
+                class="product-card"
+                data-category="fashion">
+
+                <img
+                    src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500"
+                    alt="T Shirt">
+
+                <div class="product-info">
+
+                    <span class="condition">
+                        Like New
+                    </span>
+
+                    <h3>Branded T-Shirt</h3>
+
+                    <p>
+                        👕 Size M
+                    </p>
+
+                    <p>
+                        📍 Chennai
+                    </p>
+
+                    <div class="price">
+                        ₹500
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            onclick="addToCart('Branded T-Shirt',500)">
+                            🛒 Buy
+                        </button>
+
+                        <button
+                            class="heart"
+                            onclick="addWishlist('Branded T-Shirt')">
+                            ❤️
+                        </button>
+
+                    </div>
+
+                    <button
+                        class="contact-btn"
+                        onclick="contactSeller('Branded T-Shirt')">
+                        💬 Contact Seller
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 6 -->
+
+            <div
+                class="product-card"
+                data-category="vehicles">
+
+                <img
+                    src="https://images.unsplash.com/photo-1502744688674-c619d1586c9e?w=500"
+                    alt="Bicycle">
+
+                <div class="product-info">
+
+                    <span class="condition">
+                        Good Condition
+                    </span>
+
+                    <h3>Used Bicycle</h3>
+
+                    <p>
+                        🚲 Mountain Bicycle
+                    </p>
+
+                    <p>
+                        📍 Trichy
+                    </p>
+
+                    <div class="price">
+                        ₹4,500
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            onclick="addToCart('Used Bicycle',4500)">
+                            🛒 Buy
+                        </button>
+
+                        <button
+                            class="heart"
+                            onclick="addWishlist('Used Bicycle')">
+                            ❤️
+                        </button>
+
+                    </div>
+
+                    <button
+                        class="contact-btn"
+                        onclick="contactSeller('Used Bicycle')">
+                        💬 Contact Seller
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SELL PRODUCT ================= -->
+
+    <section id="sell" class="sell-section">
+
+        <div class="sell-box">
+
+            <h2>📦 Sell Your Used Product</h2>
+
+            <p>
+                Enter your product details below.
+            </p>
+
+            <form id="sellForm">
+
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="Product Name"
+                    required
+                >
+
+                <select id="productCategory" required>
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="electronics">
+                        Electronics
+                    </option>
+
+                    <option value="furniture">
+                        Furniture
+                    </option>
+
+                    <option value="books">
+                        Books
+                    </option>
+
+                    <option value="fashion">
+                        Fashion
+                    </option>
+
+                    <option value="vehicles">
+                        Vehicles
+                    </option>
+
+                </select>
+
+
+                <select id="productCondition" required>
+
+                    <option value="">
+                        Select Condition
+                    </option>
+
+                    <option>
+                        Like New
+                    </option>
+
+                    <option>
+                        Excellent
+                    </option>
+
+                    <option>
+                        Good Condition
+                    </option>
+
+                    <option>
+                        Used
+                    </option>
+
+                </select>
+
+
+                <input
+                    type="number"
+                    id="productPrice"
+                    placeholder="Price ₹"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="productLocation"
+                    placeholder="Location"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="sellerName"
+                    placeholder="Your Name"
+                    required
+                >
+
+                <input
+                    type="tel"
+                    id="sellerPhone"
+                    placeholder="Phone Number"
+                    required
+                >
+
+                <input
+                    type="url"
+                    id="productImage"
+                    placeholder="Product Image URL"
+                    required
+                >
+
+                <textarea
+                    id="productDescription"
+                    placeholder="Product Description"
+                    required>
+                </textarea>
+
+
+                <button type="submit">
+                    Publish Product
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MY LISTINGS ================= -->
+
+    <section class="listings">
+
+        <h2 class="section-title">
+            📋 My Listings
+        </h2>
+
+        <div id="myListings">
+
+            <p>
+                You have not listed any products yet.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WISHLIST ================= -->
+
+    <section id="wishlist" class="wishlist">
+
+        <h2 class="section-title">
+            ❤️ Wishlist
+        </h2>
+
+        <div id="wishlistItems">
+
+            <p>
+                No products added to wishlist.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CART ================= -->
+
+    <section id="cart" class="cart-section">
+
+        <h2 class="section-title">
+            🛒 Shopping Cart
+        </h2>
+
+        <div id="cartItems">
+
+            <p>
+                Your cart is empty.
+            </p>
+
+        </div>
+
+        <div class="cart-total">
+
+            <h2>
+                Total:
+                ₹<span id="cartTotal">0</span>
+            </h2>
+
+            <button onclick="checkout()">
+                Proceed to Buy
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h2>♻️ ReUse Market</h2>
+
+        <p>
+            Buy smart. Sell easily. Reuse responsibly.
+        </p>
+
+        <p>
+            © 2026 ReUse Market
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
