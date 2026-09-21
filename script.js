@@ -1,11 +1,15 @@
+// ==========================================
+// GET HTML ELEMENTS
+// ==========================================
+
 const productsGrid = document.getElementById("productsGrid");
 const searchInput = document.getElementById("searchInput");
 const categorySelect = document.getElementById("categorySelect");
 
 
-// ===============================
+// ==========================================
 // NOTIFICATION
-// ===============================
+// ==========================================
 
 function showNotification(message) {
 
@@ -29,45 +33,45 @@ function showNotification(message) {
 }
 
 
+// ==========================================
+// CLOSE NOTIFICATION
+// ==========================================
+
 function closeNotification() {
 
-    document.getElementById("notification").style.display = "none";
+    const notification =
+        document.getElementById("notification");
 
+    notification.style.display = "none";
 }
 
 
-// ===============================
+// ==========================================
 // EXPLORE PRODUCTS
-// ===============================
+// ==========================================
 
 function exploreProducts() {
 
-    document.getElementById("products").scrollIntoView({
+    const productsSection =
+        document.getElementById("products");
+
+    productsSection.scrollIntoView({
         behavior: "smooth"
     });
-
 }
 
 
-// ===============================
+// ==========================================
 // BUY NOW
-// ===============================
+// ==========================================
 
 function buyProduct(productName) {
 
-    /*
-        Show confirmation before buying
-    */
+    const answer = confirm(
+        "Do you want to buy " + productName + "?"
+    );
 
-    const confirmPurchase =
-        confirm(
-            "Do you want to buy " +
-            productName +
-            "?"
-        );
-
-
-    if (confirmPurchase) {
+    if (answer === true) {
 
         showNotification(
             productName +
@@ -81,13 +85,44 @@ function buyProduct(productName) {
         );
 
     }
+}
+
+
+// ==========================================
+// CONNECT EXISTING BUY BUTTONS
+// ==========================================
+
+function connectBuyButtons() {
+
+    const buyButtons =
+        document.querySelectorAll(".buy-btn");
+
+    buyButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const card =
+                button.closest(".product-card");
+
+            if (!card) {
+                return;
+            }
+
+            const productName =
+                card.dataset.name;
+
+            buyProduct(productName);
+
+        });
+
+    });
 
 }
 
 
-// ===============================
+// ==========================================
 // SEARCH PRODUCTS
-// ===============================
+// ==========================================
 
 function searchProducts() {
 
@@ -97,13 +132,12 @@ function searchProducts() {
         .trim();
 
     filterProducts(searchValue);
-
 }
 
 
-// ===============================
+// ==========================================
 // CATEGORY FILTER
-// ===============================
+// ==========================================
 
 function filterCategory() {
 
@@ -113,13 +147,12 @@ function filterCategory() {
         .trim();
 
     filterProducts(searchValue);
-
 }
 
 
-// ===============================
+// ==========================================
 // FILTER PRODUCTS
-// ===============================
+// ==========================================
 
 function filterProducts(searchValue) {
 
@@ -133,7 +166,8 @@ function filterProducts(searchValue) {
     cards.forEach(function (card) {
 
         const productName =
-            card.dataset.name.toLowerCase();
+            card.dataset.name
+            .toLowerCase();
 
         const productCategory =
             card.dataset.category;
@@ -163,13 +197,12 @@ function filterProducts(searchValue) {
         }
 
     });
-
 }
 
 
-// ===============================
+// ==========================================
 // ADD PRODUCT
-// ===============================
+// ==========================================
 
 function addProduct() {
 
@@ -201,9 +234,9 @@ function addProduct() {
         .trim();
 
 
-    // ===============================
+    // ======================================
     // VALIDATION
-    // ===============================
+    // ======================================
 
     if (
         name === "" ||
@@ -216,7 +249,6 @@ function addProduct() {
         );
 
         return;
-
     }
 
 
@@ -227,13 +259,12 @@ function addProduct() {
         );
 
         return;
-
     }
 
 
-    // ===============================
+    // ======================================
     // DEFAULT IMAGE
-    // ===============================
+    // ======================================
 
     let imageURL = image;
 
@@ -242,13 +273,12 @@ function addProduct() {
 
         imageURL =
             "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=600&q=80";
-
     }
 
 
-    // ===============================
+    // ======================================
     // CREATE PRODUCT CARD
-    // ===============================
+    // ======================================
 
     const productCard =
         document.createElement("div");
@@ -266,9 +296,9 @@ function addProduct() {
         name;
 
 
-    // ===============================
+    // ======================================
     // IMAGE
-    // ===============================
+    // ======================================
 
     const productImage =
         document.createElement("img");
@@ -282,9 +312,9 @@ function addProduct() {
         name;
 
 
-    // ===============================
+    // ======================================
     // PRODUCT INFO
-    // ===============================
+    // ======================================
 
     const productInfo =
         document.createElement("div");
@@ -294,9 +324,9 @@ function addProduct() {
         "product-info";
 
 
-    // ===============================
+    // ======================================
     // PRODUCT NAME
-    // ===============================
+    // ======================================
 
     const productTitle =
         document.createElement("h3");
@@ -306,9 +336,9 @@ function addProduct() {
         name;
 
 
-    // ===============================
+    // ======================================
     // CONDITION
-    // ===============================
+    // ======================================
 
     const productCondition =
         document.createElement("p");
@@ -318,9 +348,9 @@ function addProduct() {
         condition;
 
 
-    // ===============================
+    // ======================================
     // PRICE
-    // ===============================
+    // ======================================
 
     const productPrice =
         document.createElement("strong");
@@ -331,24 +361,26 @@ function addProduct() {
         Number(price).toLocaleString("en-IN");
 
 
-    // ===============================
+    // ======================================
     // BUY NOW BUTTON
-    // ===============================
+    // ======================================
 
     const buyButton =
         document.createElement("button");
+
+
+    buyButton.type = "button";
+
+    buyButton.className = "buy-btn";
 
 
     buyButton.innerHTML =
         '<i class="fa-solid fa-cart-shopping"></i> Buy Now';
 
 
-    /*
-        VERY IMPORTANT
-
-        When Buy Now is clicked,
-        call buyProduct()
-    */
+    // ======================================
+    // BUY BUTTON EVENT
+    // ======================================
 
     buyButton.addEventListener(
         "click",
@@ -360,9 +392,9 @@ function addProduct() {
     );
 
 
-    // ===============================
-    // ADD ELEMENTS
-    // ===============================
+    // ======================================
+    // ADD CONTENT TO PRODUCT INFO
+    // ======================================
 
     productInfo.appendChild(
         productTitle
@@ -384,6 +416,10 @@ function addProduct() {
     );
 
 
+    // ======================================
+    // ADD CONTENT TO CARD
+    // ======================================
+
     productCard.appendChild(
         productImage
     );
@@ -394,18 +430,18 @@ function addProduct() {
     );
 
 
-    // ===============================
-    // ADD TO PRODUCT GRID
-    // ===============================
+    // ======================================
+    // ADD CARD TO PAGE
+    // ======================================
 
     productsGrid.appendChild(
         productCard
     );
 
 
-    // ===============================
-    // CLEAR FORM
-    // ===============================
+    // ======================================
+    // CLEAR INPUTS
+    // ======================================
 
     document
         .getElementById("productName")
@@ -427,18 +463,18 @@ function addProduct() {
         .value = "";
 
 
-    // ===============================
+    // ======================================
     // SUCCESS MESSAGE
-    // ===============================
+    // ======================================
 
     showNotification(
         "Product added for sale successfully!"
     );
 
 
-    // ===============================
-    // SCROLL TO PRODUCT
-    // ===============================
+    // ======================================
+    // SCROLL TO NEW PRODUCT
+    // ======================================
 
     productCard.scrollIntoView({
         behavior: "smooth",
@@ -448,9 +484,9 @@ function addProduct() {
 }
 
 
-// ===============================
-// SEARCH WITH ENTER
-// ===============================
+// ==========================================
+// SEARCH USING ENTER KEY
+// ==========================================
 
 searchInput.addEventListener(
     "keyup",
@@ -464,3 +500,10 @@ searchInput.addEventListener(
 
     }
 );
+
+
+// ==========================================
+// START APPLICATION
+// ==========================================
+
+connectBuyButtons();
