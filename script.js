@@ -2,9 +2,14 @@
 // GET HTML ELEMENTS
 // ==========================================
 
-const productsGrid = document.getElementById("productsGrid");
-const searchInput = document.getElementById("searchInput");
-const categorySelect = document.getElementById("categorySelect");
+const productsGrid =
+    document.getElementById("productsGrid");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const categorySelect =
+    document.getElementById("categorySelect");
 
 
 // ==========================================
@@ -25,11 +30,12 @@ function showNotification(message) {
 
     clearTimeout(window.notificationTimer);
 
-    window.notificationTimer = setTimeout(function () {
+    window.notificationTimer =
+        setTimeout(function () {
 
-        notification.style.display = "none";
+            notification.style.display = "none";
 
-    }, 3000);
+        }, 3000);
 }
 
 
@@ -39,10 +45,8 @@ function showNotification(message) {
 
 function closeNotification() {
 
-    const notification =
-        document.getElementById("notification");
-
-    notification.style.display = "none";
+    document.getElementById("notification")
+        .style.display = "none";
 }
 
 
@@ -52,12 +56,10 @@ function closeNotification() {
 
 function exploreProducts() {
 
-    const productsSection =
-        document.getElementById("products");
-
-    productsSection.scrollIntoView({
-        behavior: "smooth"
-    });
+    document.getElementById("products")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
 }
 
 
@@ -67,57 +69,280 @@ function exploreProducts() {
 
 function buyProduct(productName) {
 
-    const answer = confirm(
-        "Do you want to buy " + productName + "?"
-    );
+    /*
+        Instead of only showing a message,
+        open checkout page/popup.
+    */
 
-    if (answer === true) {
+    const modal =
+        document.getElementById("checkoutModal");
 
-        showNotification(
-            productName +
-            " purchased successfully!"
-        );
+    const productText =
+        document.getElementById("checkoutProduct");
 
-    } else {
 
-        showNotification(
-            "Purchase cancelled."
-        );
+    productText.textContent =
+        "Product: " + productName;
 
-    }
+
+    /*
+        Store selected product
+        so Place Order knows which
+        product was purchased.
+    */
+
+    modal.dataset.product =
+        productName;
+
+
+    modal.style.display = "flex";
 }
 
 
 // ==========================================
-// CONNECT EXISTING BUY BUTTONS
+// CLOSE CHECKOUT
+// ==========================================
+
+function closeCheckout() {
+
+    const modal =
+        document.getElementById("checkoutModal");
+
+    modal.style.display = "none";
+}
+
+
+// ==========================================
+// CONNECT BUY BUTTONS
 // ==========================================
 
 function connectBuyButtons() {
 
-    const buyButtons =
+    const buttons =
         document.querySelectorAll(".buy-btn");
 
-    buyButtons.forEach(function (button) {
 
-        button.addEventListener("click", function () {
+    buttons.forEach(function (button) {
 
-            const card =
-                button.closest(".product-card");
+        button.addEventListener(
+            "click",
+            function () {
 
-            if (!card) {
+                const card =
+                    button.closest(".product-card");
+
+
+                if (!card) {
+                    return;
+                }
+
+
+                const productName =
+                    card.dataset.name;
+
+
+                buyProduct(productName);
+
+            }
+        );
+
+    });
+}
+
+
+// ==========================================
+// PLACE ORDER
+// ==========================================
+
+document
+    .getElementById("checkoutForm")
+    .addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            const modal =
+                document.getElementById(
+                    "checkoutModal"
+                );
+
+
+            const productName =
+                modal.dataset.product;
+
+
+            const customerName =
+                document.getElementById(
+                    "billingName"
+                ).value.trim();
+
+
+            const email =
+                document.getElementById(
+                    "billingEmail"
+                ).value.trim();
+
+
+            const phone =
+                document.getElementById(
+                    "billingPhone"
+                ).value.trim();
+
+
+            const address =
+                document.getElementById(
+                    "shippingAddress"
+                ).value.trim();
+
+
+            const city =
+                document.getElementById(
+                    "shippingCity"
+                ).value.trim();
+
+
+            const state =
+                document.getElementById(
+                    "shippingState"
+                ).value.trim();
+
+
+            const pincode =
+                document.getElementById(
+                    "shippingPincode"
+                ).value.trim();
+
+
+            const payment =
+                document.getElementById(
+                    "paymentMethod"
+                ).value;
+
+
+            // ==================================
+            // VALIDATION
+            // ==================================
+
+            if (
+                customerName === "" ||
+                email === "" ||
+                phone === "" ||
+                address === "" ||
+                city === "" ||
+                state === "" ||
+                pincode === "" ||
+                payment === ""
+            ) {
+
+                showNotification(
+                    "Please fill all details!"
+                );
+
                 return;
             }
 
-            const productName =
-                card.dataset.name;
 
-            buyProduct(productName);
+            // ==================================
+            // CLOSE CHECKOUT
+            // ==================================
 
-        });
+            modal.style.display = "none";
 
-    });
 
-}
+            // ==================================
+            // SUCCESS MESSAGE
+            // ==================================
+
+            showNotification(
+                "Order placed successfully!"
+            );
+
+
+            // ==================================
+            // CONSOLE ORDER DETAILS
+            // ==================================
+
+            console.log("========== ORDER ==========");
+
+            console.log(
+                "Product:",
+                productName
+            );
+
+            console.log(
+                "Customer:",
+                customerName
+            );
+
+            console.log(
+                "Email:",
+                email
+            );
+
+            console.log(
+                "Phone:",
+                phone
+            );
+
+            console.log(
+                "Address:",
+                address
+            );
+
+            console.log(
+                "City:",
+                city
+            );
+
+            console.log(
+                "State:",
+                state
+            );
+
+            console.log(
+                "Pincode:",
+                pincode
+            );
+
+            console.log(
+                "Payment:",
+                payment
+            );
+
+            console.log(
+                "=========================="
+            );
+
+
+            // ==================================
+            // CLEAR FORM
+            // ==================================
+
+            document
+                .getElementById("checkoutForm")
+                .reset();
+
+
+            // ==================================
+            // SHOW ORDER CONFIRMATION
+            // ==================================
+
+            setTimeout(function () {
+
+                showNotification(
+                    "Thank you " +
+                    customerName +
+                    "! Your " +
+                    productName +
+                    " will be shipped soon."
+                );
+
+            }, 1500);
+
+        }
+    );
 
 
 // ==========================================
@@ -128,8 +353,8 @@ function searchProducts() {
 
     const searchValue =
         searchInput.value
-        .toLowerCase()
-        .trim();
+            .toLowerCase()
+            .trim();
 
     filterProducts(searchValue);
 }
@@ -143,8 +368,8 @@ function filterCategory() {
 
     const searchValue =
         searchInput.value
-        .toLowerCase()
-        .trim();
+            .toLowerCase()
+            .trim();
 
     filterProducts(searchValue);
 }
@@ -160,26 +385,32 @@ function filterProducts(searchValue) {
         categorySelect.value;
 
     const cards =
-        document.querySelectorAll(".product-card");
+        document.querySelectorAll(
+            ".product-card"
+        );
 
 
     cards.forEach(function (card) {
 
         const productName =
             card.dataset.name
-            .toLowerCase();
+                .toLowerCase();
+
 
         const productCategory =
             card.dataset.category;
 
 
         const matchesSearch =
-            productName.includes(searchValue);
+            productName.includes(
+                searchValue
+            );
 
 
         const matchesCategory =
             selectedCategory === "all" ||
-            productCategory === selectedCategory ||
+            productCategory ===
+                selectedCategory ||
             productCategory === "all";
 
 
@@ -188,11 +419,15 @@ function filterProducts(searchValue) {
             matchesCategory
         ) {
 
-            card.classList.remove("hidden");
+            card.classList.remove(
+                "hidden"
+            );
 
         } else {
 
-            card.classList.add("hidden");
+            card.classList.add(
+                "hidden"
+            );
 
         }
 
@@ -207,31 +442,27 @@ function filterProducts(searchValue) {
 function addProduct() {
 
     const name =
-        document
-        .getElementById("productName")
-        .value
-        .trim();
+        document.getElementById(
+            "productName"
+        ).value.trim();
 
 
     const price =
-        document
-        .getElementById("productPrice")
-        .value
-        .trim();
+        document.getElementById(
+            "productPrice"
+        ).value.trim();
 
 
     const condition =
-        document
-        .getElementById("productCondition")
-        .value
-        .trim();
+        document.getElementById(
+            "productCondition"
+        ).value.trim();
 
 
     const image =
-        document
-        .getElementById("productImage")
-        .value
-        .trim();
+        document.getElementById(
+            "productImage"
+        ).value.trim();
 
 
     // ======================================
@@ -277,7 +508,7 @@ function addProduct() {
 
 
     // ======================================
-    // CREATE PRODUCT CARD
+    // PRODUCT CARD
     // ======================================
 
     const productCard =
@@ -325,7 +556,7 @@ function addProduct() {
 
 
     // ======================================
-    // PRODUCT NAME
+    // NAME
     // ======================================
 
     const productTitle =
@@ -358,11 +589,12 @@ function addProduct() {
 
     productPrice.textContent =
         "₹" +
-        Number(price).toLocaleString("en-IN");
+        Number(price)
+            .toLocaleString("en-IN");
 
 
     // ======================================
-    // BUY NOW BUTTON
+    // BUY BUTTON
     // ======================================
 
     const buyButton =
@@ -371,16 +603,14 @@ function addProduct() {
 
     buyButton.type = "button";
 
-    buyButton.className = "buy-btn";
+
+    buyButton.className =
+        "buy-btn";
 
 
     buyButton.innerHTML =
         '<i class="fa-solid fa-cart-shopping"></i> Buy Now';
 
-
-    // ======================================
-    // BUY BUTTON EVENT
-    // ======================================
 
     buyButton.addEventListener(
         "click",
@@ -393,46 +623,34 @@ function addProduct() {
 
 
     // ======================================
-    // ADD CONTENT TO PRODUCT INFO
+    // ADD CONTENT
     // ======================================
 
     productInfo.appendChild(
         productTitle
     );
 
-
     productInfo.appendChild(
         productCondition
     );
 
-
     productInfo.appendChild(
         productPrice
     );
-
 
     productInfo.appendChild(
         buyButton
     );
 
 
-    // ======================================
-    // ADD CONTENT TO CARD
-    // ======================================
-
     productCard.appendChild(
         productImage
     );
-
 
     productCard.appendChild(
         productInfo
     );
 
-
-    // ======================================
-    // ADD CARD TO PAGE
-    // ======================================
 
     productsGrid.appendChild(
         productCard
@@ -440,41 +658,37 @@ function addProduct() {
 
 
     // ======================================
-    // CLEAR INPUTS
+    // CLEAR FORM
     // ======================================
 
-    document
-        .getElementById("productName")
-        .value = "";
+    document.getElementById(
+        "productName"
+    ).value = "";
 
 
-    document
-        .getElementById("productPrice")
-        .value = "";
+    document.getElementById(
+        "productPrice"
+    ).value = "";
 
 
-    document
-        .getElementById("productCondition")
-        .value = "";
+    document.getElementById(
+        "productCondition"
+    ).value = "";
 
 
-    document
-        .getElementById("productImage")
-        .value = "";
+    document.getElementById(
+        "productImage"
+    ).value = "";
 
 
     // ======================================
-    // SUCCESS MESSAGE
+    // SUCCESS
     // ======================================
 
     showNotification(
         "Product added for sale successfully!"
     );
 
-
-    // ======================================
-    // SCROLL TO NEW PRODUCT
-    // ======================================
 
     productCard.scrollIntoView({
         behavior: "smooth",
@@ -485,7 +699,7 @@ function addProduct() {
 
 
 // ==========================================
-// SEARCH USING ENTER KEY
+// SEARCH ENTER KEY
 // ==========================================
 
 searchInput.addEventListener(
@@ -503,7 +717,7 @@ searchInput.addEventListener(
 
 
 // ==========================================
-// START APPLICATION
+// START
 // ==========================================
 
 connectBuyButtons();
