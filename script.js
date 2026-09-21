@@ -1,495 +1,137 @@
-// ========================================
-// CART
-// ========================================
+const productsGrid = document.getElementById("productsGrid");
+const searchInput = document.getElementById("searchInput");
+const categorySelect = document.getElementById("categorySelect");
 
-let cart = [];
+function showNotification(message) {
+    const notification = document.getElementById("notification");
+    const notificationText = document.getElementById("notificationText");
 
+    notificationText.textContent = message;
+    notification.style.display = "flex";
 
-// ADD TO CART
-
-function addToCart(name, price) {
-
-    let existing =
-        cart.find(item => item.name === name);
-
-    if (existing) {
-
-        existing.quantity++;
-
-    } else {
-
-        cart.push({
-            name: name,
-            price: price,
-            quantity: 1
-        });
-
-    }
-
-    displayCart();
-
-    alert(name + " added to cart!");
+    setTimeout(function () {
+        notification.style.display = "none";
+    }, 3000);
 }
 
-
-// DISPLAY CART
-
-function displayCart() {
-
-    let cartItems =
-        document.getElementById("cartItems");
-
-    cartItems.innerHTML = "";
-
-    if (cart.length === 0) {
-
-        cartItems.innerHTML =
-            "<p>Your cart is empty.</p>";
-
-        document.getElementById("cartTotal").innerText = 0;
-
-        return;
-    }
-
-
-    let total = 0;
-
-
-    cart.forEach(function(item, index) {
-
-        let itemTotal =
-            item.price * item.quantity;
-
-        total += itemTotal;
-
-
-        cartItems.innerHTML += `
-
-            <div class="cart-item">
-
-                <div>
-
-                    <strong>
-                        ${item.name}
-                    </strong>
-
-                    <p>
-                        ₹${item.price}
-                    </p>
-
-                </div>
-
-
-                <div class="cart-controls">
-
-                    <button
-                        onclick="decreaseQuantity(${index})">
-                        -
-                    </button>
-
-                    ${item.quantity}
-
-                    <button
-                        onclick="increaseQuantity(${index})">
-                        +
-                    </button>
-
-                    <button
-                        class="remove"
-                        onclick="removeFromCart(${index})">
-                        Remove
-                    </button>
-
-                </div>
-
-            </div>
-        `;
-    });
-
-
-    document.getElementById("cartTotal").innerText =
-        total;
+function closeNotification() {
+    document.getElementById("notification").style.display = "none";
 }
 
-
-// INCREASE
-
-function increaseQuantity(index) {
-
-    cart[index].quantity++;
-
-    displayCart();
-}
-
-
-// DECREASE
-
-function decreaseQuantity(index) {
-
-    if (cart[index].quantity > 1) {
-
-        cart[index].quantity--;
-
-    } else {
-
-        cart.splice(index, 1);
-    }
-
-    displayCart();
-}
-
-
-// REMOVE
-
-function removeFromCart(index) {
-
-    cart.splice(index, 1);
-
-    displayCart();
-}
-
-
-// ========================================
-// CHECKOUT
-// ========================================
-
-function checkout() {
-
-    if (cart.length === 0) {
-
-        alert("Your cart is empty!");
-
-        return;
-    }
-
-
-    let total =
-        document.getElementById("cartTotal").innerText;
-
-
-    let address =
-        prompt("Enter your delivery address:");
-
-    if (!address) {
-
-        return;
-    }
-
-
-    alert(
-        "🎉 Order Placed Successfully!\n\n" +
-        "Total Amount: ₹" + total +
-        "\nDelivery Address: " + address
-    );
-
-
-    cart = [];
-
-    displayCart();
-}
-
-
-// ========================================
-// WISHLIST
-// ========================================
-
-let wishlist = [];
-
-
-function addWishlist(name) {
-
-    if (!wishlist.includes(name)) {
-
-        wishlist.push(name);
-
-        displayWishlist();
-
-        alert(name + " added to wishlist ❤️");
-
-    } else {
-
-        alert("Already in wishlist!");
-    }
-}
-
-
-function displayWishlist() {
-
-    let wishlistItems =
-        document.getElementById("wishlistItems");
-
-    wishlistItems.innerHTML = "";
-
-
-    if (wishlist.length === 0) {
-
-        wishlistItems.innerHTML =
-            "<p>No products added to wishlist.</p>";
-
-        return;
-    }
-
-
-    wishlist.forEach(function(item, index) {
-
-        wishlistItems.innerHTML += `
-
-            <div class="wishlist-item">
-
-                ❤️ ${item}
-
-                <button
-                    onclick="removeWishlist(${index})">
-
-                    Remove
-
-                </button>
-
-            </div>
-        `;
+function exploreProducts() {
+    document.getElementById("products").scrollIntoView({
+        behavior: "smooth"
     });
 }
 
-
-function removeWishlist(index) {
-
-    wishlist.splice(index, 1);
-
-    displayWishlist();
+function buyProduct(productName) {
+    showNotification(productName + " added to your cart!");
 }
-
-
-// ========================================
-// SEARCH
-// ========================================
 
 function searchProducts() {
+    const searchValue = searchInput.value.toLowerCase().trim();
+    const cards = document.querySelectorAll(".product-card");
 
-    let value =
-        document.getElementById("searchBox")
-            .value
-            .toLowerCase();
+    cards.forEach(function (card) {
+        const name = card.dataset.name.toLowerCase();
 
-
-    let products =
-        document.querySelectorAll(".product-card");
-
-
-    products.forEach(function(product) {
-
-        let name =
-            product.querySelector("h3")
-                .innerText
-                .toLowerCase();
-
-
-        if (name.includes(value)) {
-
-            product.style.display = "block";
-
+        if (name.includes(searchValue)) {
+            card.classList.remove("hidden");
         } else {
-
-            product.style.display = "none";
+            card.classList.add("hidden");
         }
-
     });
+
+    if (searchValue === "") {
+        cards.forEach(function (card) {
+            card.classList.remove("hidden");
+        });
+    }
 }
 
+function filterCategory() {
+    const category = categorySelect.value;
+    const cards = document.querySelectorAll(".product-card");
 
-// ========================================
-// CATEGORY FILTER
-// ========================================
-
-function filterProducts(category) {
-
-    let products =
-        document.querySelectorAll(".product-card");
-
-
-    products.forEach(function(product) {
-
+    cards.forEach(function (card) {
         if (
             category === "all" ||
-            product.dataset.category === category
+            card.dataset.category === category
         ) {
-
-            product.style.display = "block";
-
+            card.classList.remove("hidden");
         } else {
-
-            product.style.display = "none";
+            card.classList.add("hidden");
         }
-
     });
 }
 
+function addProduct() {
+    const name = document.getElementById("productName").value.trim();
+    const price = document.getElementById("productPrice").value.trim();
+    const condition = document.getElementById("productCondition").value.trim();
+    const image = document.getElementById("productImage").value.trim();
 
-// ========================================
-// SELL PRODUCT
-// ========================================
+    if (name === "" || price === "" || condition === "") {
+        showNotification("Please fill all required fields!");
+        return;
+    }
 
-let myListings = [];
+    let imageURL = image;
 
+    if (imageURL === "") {
+        imageURL = "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=600&q=80";
+    }
 
-document
-    .getElementById("sellForm")
-    .addEventListener("submit", function(event) {
+    const productCard = document.createElement("div");
 
-        event.preventDefault();
+    productCard.className = "product-card";
+    productCard.dataset.category = "all";
+    productCard.dataset.name = name;
 
+    productCard.innerHTML = `
+        <img src="${imageURL}" alt="${name}">
 
-        let product = {
+        <div class="product-info">
 
-            name:
-                document.getElementById("productName").value,
+            <h3>${escapeHTML(name)}</h3>
 
-            category:
-                document.getElementById("productCategory").value,
+            <p>${escapeHTML(condition)}</p>
 
-            condition:
-                document.getElementById("productCondition").value,
+            <strong>₹${Number(price).toLocaleString("en-IN")}</strong>
 
-            price:
-                document.getElementById("productPrice").value,
+            <button onclick="buyProduct('${escapeHTML(name)}')">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Buy Now
+            </button>
 
-            location:
-                document.getElementById("productLocation").value,
+        </div>
+    `;
 
-            seller:
-                document.getElementById("sellerName").value,
+    productsGrid.appendChild(productCard);
 
-            phone:
-                document.getElementById("sellerPhone").value,
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+    document.getElementById("productCondition").value = "";
+    document.getElementById("productImage").value = "";
 
-            image:
-                document.getElementById("productImage").value,
-
-            description:
-                document.getElementById("productDescription").value
-
-        };
-
-
-        myListings.push(product);
-
-
-        displayListings();
-
-
-        alert(
-            "🎉 Your product has been listed successfully!"
-        );
-
-
-        document
-            .getElementById("sellForm")
-            .reset();
-
-
-        document
-            .querySelector(".listings")
-            .scrollIntoView();
-
-    });
-
-
-// DISPLAY MY LISTINGS
-
-function displayListings() {
-
-    let container =
-        document.getElementById("myListings");
-
-    container.innerHTML = "";
-
-
-    myListings.forEach(function(product, index) {
-
-        container.innerHTML += `
-
-            <div class="listing-card">
-
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                >
-
-                <div>
-
-                    <h3>
-                        ${product.name}
-                    </h3>
-
-                    <p>
-                        ₹${product.price}
-                    </p>
-
-                    <p>
-                        ${product.condition}
-                    </p>
-
-                    <p>
-                        📍 ${product.location}
-                    </p>
-
-                </div>
-
-
-                <button
-                    class="delete-btn"
-                    onclick="deleteListing(${index})">
-
-                    Delete
-
-                </button>
-
-            </div>
-        `;
-    });
-}
-
-
-// DELETE LISTING
-
-function deleteListing(index) {
-
-    myListings.splice(index, 1);
-
-    displayListings();
-
-    alert("Product listing deleted.");
-}
-
-
-// ========================================
-// CONTACT SELLER
-// ========================================
-
-function contactSeller(productName) {
-
-    alert(
-        "💬 Contact Seller\n\n" +
-        "Product: " + productName +
-        "\n\nSeller contact details will appear here."
+    showNotification(
+        "Product added for sale successfully!"
     );
+
+    productCard.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 }
 
-
-// ========================================
-// NAVIGATION
-// ========================================
-
-function goToProducts() {
-
-    document
-        .getElementById("products")
-        .scrollIntoView();
+function escapeHTML(value) {
+    const div = document.createElement("div");
+    div.textContent = value;
+    return div.innerHTML;
 }
 
-
-function goToSell() {
-
-    document
-        .getElementById("sell")
-        .scrollIntoView();
-        }
+searchInput.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        searchProducts();
+    }
+});
