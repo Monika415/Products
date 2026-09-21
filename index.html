@@ -272,6 +272,105 @@
     </div>
 
 </footer>
+    <!-- BILLING + SHIPPING MODAL -->
+<div id="checkoutModal" class="checkout-modal">
+
+    <div class="checkout-box">
+
+        <button class="checkout-close" onclick="closeCheckout()">
+            ×
+        </button>
+
+        <h2>Checkout</h2>
+
+        <p id="checkoutProduct"></p>
+
+        <form id="checkoutForm">
+
+            <h3>Billing Details</h3>
+
+            <input
+                type="text"
+                id="billingName"
+                placeholder="Full Name"
+                required
+            >
+
+            <input
+                type="email"
+                id="billingEmail"
+                placeholder="Email Address"
+                required
+            >
+
+            <input
+                type="tel"
+                id="billingPhone"
+                placeholder="Phone Number"
+                required
+            >
+
+            <h3>Shipping Details</h3>
+
+            <input
+                type="text"
+                id="shippingAddress"
+                placeholder="Address"
+                required
+            >
+
+            <input
+                type="text"
+                id="shippingCity"
+                placeholder="City"
+                required
+            >
+
+            <input
+                type="text"
+                id="shippingState"
+                placeholder="State"
+                required
+            >
+
+            <input
+                type="text"
+                id="shippingPincode"
+                placeholder="Pincode"
+                required
+            >
+
+            <h3>Payment</h3>
+
+            <select id="paymentMethod" required>
+
+                <option value="">
+                    Select Payment Method
+                </option>
+
+                <option value="Cash on Delivery">
+                    Cash on Delivery
+                </option>
+
+                <option value="UPI">
+                    UPI
+                </option>
+
+                <option value="Card">
+                    Credit / Debit Card
+                </option>
+
+            </select>
+
+            <button type="submit" class="place-order">
+                Place Order
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 
 <script src="script.js"></script>
 
