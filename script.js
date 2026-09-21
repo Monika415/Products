@@ -8,22 +8,31 @@ const categorySelect = document.getElementById("categorySelect");
 // ===============================
 
 function showNotification(message) {
-    const notification = document.getElementById("notification");
-    const notificationText = document.getElementById("notificationText");
+
+    const notification =
+        document.getElementById("notification");
+
+    const notificationText =
+        document.getElementById("notificationText");
 
     notificationText.textContent = message;
+
     notification.style.display = "flex";
 
     clearTimeout(window.notificationTimer);
 
     window.notificationTimer = setTimeout(function () {
+
         notification.style.display = "none";
+
     }, 3000);
 }
 
 
 function closeNotification() {
+
     document.getElementById("notification").style.display = "none";
+
 }
 
 
@@ -41,14 +50,37 @@ function exploreProducts() {
 
 
 // ===============================
-// BUY PRODUCT
+// BUY NOW
 // ===============================
 
 function buyProduct(productName) {
 
-    showNotification(
-        productName + " added to your cart!"
-    );
+    /*
+        Show confirmation before buying
+    */
+
+    const confirmPurchase =
+        confirm(
+            "Do you want to buy " +
+            productName +
+            "?"
+        );
+
+
+    if (confirmPurchase) {
+
+        showNotification(
+            productName +
+            " purchased successfully!"
+        );
+
+    } else {
+
+        showNotification(
+            "Purchase cancelled."
+        );
+
+    }
 
 }
 
@@ -59,7 +91,10 @@ function buyProduct(productName) {
 
 function searchProducts() {
 
-    const searchValue = searchInput.value.toLowerCase().trim();
+    const searchValue =
+        searchInput.value
+        .toLowerCase()
+        .trim();
 
     filterProducts(searchValue);
 
@@ -72,7 +107,10 @@ function searchProducts() {
 
 function filterCategory() {
 
-    const searchValue = searchInput.value.toLowerCase().trim();
+    const searchValue =
+        searchInput.value
+        .toLowerCase()
+        .trim();
 
     filterProducts(searchValue);
 
@@ -80,14 +118,17 @@ function filterCategory() {
 
 
 // ===============================
-// COMMON FILTER FUNCTION
+// FILTER PRODUCTS
 // ===============================
 
 function filterProducts(searchValue) {
 
-    const selectedCategory = categorySelect.value;
+    const selectedCategory =
+        categorySelect.value;
 
-    const cards = document.querySelectorAll(".product-card");
+    const cards =
+        document.querySelectorAll(".product-card");
+
 
     cards.forEach(function (card) {
 
@@ -97,15 +138,21 @@ function filterProducts(searchValue) {
         const productCategory =
             card.dataset.category;
 
+
         const matchesSearch =
             productName.includes(searchValue);
+
 
         const matchesCategory =
             selectedCategory === "all" ||
             productCategory === selectedCategory ||
             productCategory === "all";
 
-        if (matchesSearch && matchesCategory) {
+
+        if (
+            matchesSearch &&
+            matchesCategory
+        ) {
 
             card.classList.remove("hidden");
 
@@ -127,19 +174,36 @@ function filterProducts(searchValue) {
 function addProduct() {
 
     const name =
-        document.getElementById("productName").value.trim();
+        document
+        .getElementById("productName")
+        .value
+        .trim();
+
 
     const price =
-        document.getElementById("productPrice").value.trim();
+        document
+        .getElementById("productPrice")
+        .value
+        .trim();
+
 
     const condition =
-        document.getElementById("productCondition").value.trim();
+        document
+        .getElementById("productCondition")
+        .value
+        .trim();
+
 
     const image =
-        document.getElementById("productImage").value.trim();
+        document
+        .getElementById("productImage")
+        .value
+        .trim();
 
 
-    // Validate required fields
+    // ===============================
+    // VALIDATION
+    // ===============================
 
     if (
         name === "" ||
@@ -152,10 +216,9 @@ function addProduct() {
         );
 
         return;
+
     }
 
-
-    // Check valid price
 
     if (Number(price) <= 0) {
 
@@ -164,12 +227,16 @@ function addProduct() {
         );
 
         return;
+
     }
 
 
-    // Default image
+    // ===============================
+    // DEFAULT IMAGE
+    // ===============================
 
     let imageURL = image;
+
 
     if (imageURL === "") {
 
@@ -179,126 +246,199 @@ function addProduct() {
     }
 
 
-    // Create product card
+    // ===============================
+    // CREATE PRODUCT CARD
+    // ===============================
 
     const productCard =
         document.createElement("div");
 
-    productCard.className = "product-card";
 
-    /*
-        New products are given "all"
-        so they will be visible in
-        All Categories.
-    */
-
-    productCard.dataset.category = "all";
-
-    productCard.dataset.name = name;
+    productCard.className =
+        "product-card";
 
 
-    // Create image
+    productCard.dataset.category =
+        "all";
+
+
+    productCard.dataset.name =
+        name;
+
+
+    // ===============================
+    // IMAGE
+    // ===============================
 
     const productImage =
         document.createElement("img");
 
-    productImage.src = imageURL;
 
-    productImage.alt = name;
+    productImage.src =
+        imageURL;
 
 
-    // Product info container
+    productImage.alt =
+        name;
+
+
+    // ===============================
+    // PRODUCT INFO
+    // ===============================
 
     const productInfo =
         document.createElement("div");
 
-    productInfo.className = "product-info";
+
+    productInfo.className =
+        "product-info";
 
 
-    // Product name
+    // ===============================
+    // PRODUCT NAME
+    // ===============================
 
     const productTitle =
         document.createElement("h3");
 
-    productTitle.textContent = name;
+
+    productTitle.textContent =
+        name;
 
 
-    // Condition
+    // ===============================
+    // CONDITION
+    // ===============================
 
     const productCondition =
         document.createElement("p");
 
-    productCondition.textContent = condition;
+
+    productCondition.textContent =
+        condition;
 
 
-    // Price
+    // ===============================
+    // PRICE
+    // ===============================
 
     const productPrice =
         document.createElement("strong");
 
+
     productPrice.textContent =
-        "₹" + Number(price).toLocaleString("en-IN");
+        "₹" +
+        Number(price).toLocaleString("en-IN");
 
 
-    // Buy button
+    // ===============================
+    // BUY NOW BUTTON
+    // ===============================
 
     const buyButton =
         document.createElement("button");
+
 
     buyButton.innerHTML =
         '<i class="fa-solid fa-cart-shopping"></i> Buy Now';
 
 
-    // Important:
-    // Direct event listener instead of inline onclick
+    /*
+        VERY IMPORTANT
 
-    buyButton.addEventListener("click", function () {
+        When Buy Now is clicked,
+        call buyProduct()
+    */
 
-        buyProduct(name);
+    buyButton.addEventListener(
+        "click",
+        function () {
 
-    });
+            buyProduct(name);
 
-
-    // Add elements
-
-    productInfo.appendChild(productTitle);
-
-    productInfo.appendChild(productCondition);
-
-    productInfo.appendChild(productPrice);
-
-    productInfo.appendChild(buyButton);
+        }
+    );
 
 
-    productCard.appendChild(productImage);
+    // ===============================
+    // ADD ELEMENTS
+    // ===============================
 
-    productCard.appendChild(productInfo);
-
-
-    // Add new product to grid
-
-    productsGrid.appendChild(productCard);
-
-
-    // Clear form
-
-    document.getElementById("productName").value = "";
-
-    document.getElementById("productPrice").value = "";
-
-    document.getElementById("productCondition").value = "";
-
-    document.getElementById("productImage").value = "";
+    productInfo.appendChild(
+        productTitle
+    );
 
 
-    // Show success message
+    productInfo.appendChild(
+        productCondition
+    );
+
+
+    productInfo.appendChild(
+        productPrice
+    );
+
+
+    productInfo.appendChild(
+        buyButton
+    );
+
+
+    productCard.appendChild(
+        productImage
+    );
+
+
+    productCard.appendChild(
+        productInfo
+    );
+
+
+    // ===============================
+    // ADD TO PRODUCT GRID
+    // ===============================
+
+    productsGrid.appendChild(
+        productCard
+    );
+
+
+    // ===============================
+    // CLEAR FORM
+    // ===============================
+
+    document
+        .getElementById("productName")
+        .value = "";
+
+
+    document
+        .getElementById("productPrice")
+        .value = "";
+
+
+    document
+        .getElementById("productCondition")
+        .value = "";
+
+
+    document
+        .getElementById("productImage")
+        .value = "";
+
+
+    // ===============================
+    // SUCCESS MESSAGE
+    // ===============================
 
     showNotification(
         "Product added for sale successfully!"
     );
 
 
-    // Scroll to newly added product
+    // ===============================
+    // SCROLL TO PRODUCT
+    // ===============================
 
     productCard.scrollIntoView({
         behavior: "smooth",
@@ -309,7 +449,7 @@ function addProduct() {
 
 
 // ===============================
-// ENTER KEY SEARCH
+// SEARCH WITH ENTER
 // ===============================
 
 searchInput.addEventListener(
