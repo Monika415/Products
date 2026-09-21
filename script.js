@@ -1,7 +1,6 @@
 // ==========================================
 // GET HTML ELEMENTS
 // ==========================================
-
 const productsGrid =
     document.getElementById("productsGrid");
 
